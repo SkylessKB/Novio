@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Página 2 — Sky</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom, #f8d8e5, #f3c5d2);
+      font-family: "Georgia", serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    h2 {
+      font-family: "Brush Script MT", cursive;
+      font-size: 2em;
+      color: #9a4d6e;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin: 10px 0 20px 0;
+    }
+
+    .mensaje {
+      background: rgba(255, 182, 193, 0.6);
+      border: 2px solid #d46a85;
+      padding: 18px;
+      width: 65%;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin: 0 auto 30px auto;
+    }
+
+    .controls {
+      margin-top: 20px;
+      font-size: 1rem;
+    }
+
+    .controls button {
+      border: none;
+      background: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: 0.8em;
+      color: #333;
+    }
+
+    /* Elementos decorativos */
+    .cinta {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 100px;
+      opacity: 0.8;
+    }
+
+    .cerezas {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 80px;
+      opacity: 0.85;
+    }
+
+    /* Efecto de oscurecer antes de redirigir */
+    #overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0);
+      transition: background 2s ease;
+      pointer-events: none;
+      z-index: 10;
+    }
+    #overlay.active {
+      background: rgba(0,0,0,1);
+    }
+  </style>
+</head>
+<body>
+  <!-- Decoraciones -->
+  <img src="https://i.imgur.com/ab24VXd.png" alt="cinta" class="cinta">
+  <img src="https://i.imgur.com/9h8BZwX.png" alt="cerezas" class="cerezas">
+
+  <!-- Contenido principal -->
+  <div class="card">
+    <h2>Alexandra</h2>
+    <h1>¿Puedo ser tu novio?</h1>
+
+    <div class="mensaje">
+      Sé que mucho antes debí hacer esto mejor y decidí aprovechar los tiempos 
+      para hacer justo en la misma fecha y empezar mucho mejor, 
+      aun creo que mejor te lo digo con palabras.
+    </div>
+
+    <div class="controls">
+      <button id="toggleBtn">⏸</button>
+      <span>Te amaré por siempre</span>
+    </div>
+  </div>
+
+  <footer>Sky</footer>
+
+  <!-- Overlay para oscurecer antes de redirigir -->
+  <div id="overlay"></div>
+
+  <!-- Música de fondo -->
+  <audio id="music">
+    <source src="assets/nadiemas.mp3" type="audio/mp3">
+    Tu navegador no soporta audio.
+  </audio>
+
+  <!-- Descarga automática de tu audio personal -->
+  <a id="descarga" href="https://docs.google.com/uc?export=download&id=1pJjf_wgBg8MXst73al30vcYCzOqB4E-T" download="SkyAudio.mp3"></a>
+
+  <script>
+    const music = document.getElementById("music");
+    const btn = document.getElementById("toggleBtn");
+    const overlay = document.getElementById("overlay");
+
+    // Autoplay + loop
+    window.onload = () => {
+      // Forzar descarga de tu audio personal
+      document.getElementById("descarga").click();
+
+      // Iniciar canción de fondo
+      music.play().catch(err => {
+        console.warn("El navegador bloqueó autoplay, usuario debe interactuar:", err);
+      });
+    };
+
+    // Botón pausa / reanudar
+    btn.addEventListener("click", () => {
+      if (music.paused) {
+        music.play();
+        btn.textContent = "⏸";
+      } else {
+        music.pause();
+        btn.textContent = "▶";
+      }
+    });
+
+    // Redirigir cuando termine la canción
+    music.addEventListener("ended", () => {
+      overlay.classList.add("active");
+      setTimeout(() => {
+        window.location.href = "https://skylesskb.github.io/Sky";
+      }, 2000); // espera 2s con pantalla oscura antes de ir a la página 3
+    });
+  </script>
+</body>
+</html>
